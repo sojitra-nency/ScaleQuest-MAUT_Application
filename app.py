@@ -70,8 +70,8 @@ def MAUT_1():
     ranked_data['Abbreviated Vendor'] = abbreviated_names
 
     # Save ranked options to CSV
-    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Options.csv', index=False)
-    output = pd.read_csv('Options.csv')
+    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('MAUT.csv', index=False)
+    output = pd.read_csv('MAUT.csv')
     
     
     # Scale the overall scores between 0 and 1 using Min-Max normalization
@@ -149,8 +149,8 @@ def MAUT_AHP():
     ranked_data['Abbreviated Vendor'] = abbreviated_names
 
     # Save ranked options to CSV
-    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Options.csv', index=False)
-    output = pd.read_csv('Options.csv')
+    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('AHP.csv', index=False)
+    output = pd.read_csv('AHP.csv')
 
     # Scale the overall scores between 0 and 1 using Min-Max normalization
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -244,8 +244,8 @@ def MAUT_LOSS():
     ranked_data['Abbreviated Vendor'] = abbreviated_names
 
     # Save ranked options to CSV
-    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Ranked Options.csv', index=False)
-    output = pd.read_csv('Ranked Options.csv')
+    ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('LOSS.csv', index=False)
+    output = pd.read_csv('LOSS.csv')
     
     # Scale the overall scores between 0 and 1 using Min-Max normalization
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -323,10 +323,10 @@ def MAUT_TOPSIS():
 
     # Save ranked options with abbreviated vendor names to CSV
     ranked_data['Abbreviated Vendor'] = abbreviated_names
-    ranked_data[['S.no', 'Company', 'Abbreviated Vendor', 'overall_score']].to_csv('Ranked Options.csv', index=False)
+    ranked_data[['S.no', 'Company', 'Abbreviated Vendor', 'overall_score']].to_csv('TOPSIS.csv', index=False)
 
     # Read the ranked options CSV
-    output = pd.read_csv('Ranked Options.csv')
+    output = pd.read_csv('TOPSIS.csv')
     
     # Scale the overall scores between 0 and 1 using Min-Max normalization
     scaler = MinMaxScaler(feature_range=(0, 1))
