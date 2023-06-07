@@ -5,7 +5,7 @@ import matplotlib
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 
-matplotlib.use("Tkagg")
+
 
 def MAUT_1():
     st.title("MAUT = Multi Attribute Utility Theory")
