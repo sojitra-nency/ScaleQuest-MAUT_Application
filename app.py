@@ -344,8 +344,71 @@ def MAUT_TOPSIS():
 
 
 
+
+def SENSITIVITY_TEST():
+    # Read the Excel file and skip the first row
+    data = pd.read_excel(upload_file, skiprows=1)
+
+    # Define a range of weights to test
+    weight_range = [0.01, 0.05]
+
+    # Perform sensitivity test for each weight
+    for weight in weight_range:
+        # Update the weights dictionary with the new weight
+        weights = {
+            'IRR': weight,
+            'Strategic fit': 0.1,
+            'Technical Feasibility': 0.15,
+            'Uniqueness of R&D': 0.1,
+            'Reputational risk': 0.1,
+            'Market and Business risk': 0.1,
+            'Scalability': 0.1,
+            'Regulatory risk': 0.1,
+            'Market factors': 0.05
+        }
+
+        # Calculate weighted scores for each attribute
+        for attribute in weights:
+            if attribute in data.columns:
+                data[attribute + '_weighted'] = data[attribute] * weights[attribute]
+
+        # Calculate overall scores
+        weighted_columns = [col for col in data.columns if col.endswith('_weighted')]
+        data['overall_score'] = data[weighted_columns].sum(axis=1)
+
+        # Rank options based on overall scores
+        ranked_data = data.sort_values('overall_score', ascending=False)
+
+        # Abbreviate vendor names
+        abbreviated_names = ['Vendor {}'.format(i + 1) for i in range(len(ranked_data))]
+        ranked_data['Abbreviated Vendor'] = abbreviated_names
+
+        # Save ranked options to CSV
+        ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Options.csv', index=False)
+        output = pd.read_csv('Options.csv')
+
+        # Scale the overall scores between 0 and 1 using Min-Max normalization
+        scaler = MinMaxScaler(feature_range=(0, 1))
+        output['normalized_score'] = scaler.fit_transform(output[['overall_score']])
+
+        # Plot utility curve
+        fig, ax = plt.subplots()
+        ax.plot(output['Abbreviated Vendor'], output['normalized_score'])
+        ax.set_xlabel('Vendor')
+        ax.set_ylabel('Utility Score')
+        ax.set_title('Utility Curve')
+        ax.tick_params(axis='x', rotation=90, labelsize=2)
+        st.pyplot(fig)
+
+
+
+
+
+
+
+
 # Create a sidebar with options for each IPYNB file
-option = st.sidebar.selectbox('Select an IPYNB file', ['MAUT_1', 'MAUT_AHP', 'MAUT_LOSS', 'MAUT_TOPSIS'])
+option = st.sidebar.selectbox('Select an IPYNB file', ['MAUT_1', 'MAUT_AHP', 'MAUT_LOSS', 'MAUT_TOPSIS','Sensitivity Analysis'])
 upload_file = st.file_uploader("Upload a CSV file", type=["xlsx"])
 if upload_file is not None:
     # Run the selected IPYNB file function
@@ -357,3 +420,8 @@ if upload_file is not None:
         MAUT_LOSS()  # Call the function corresponding to MAUT_LOSS.IPYNB
     elif option == 'MAUT_TOPSIS':
         MAUT_TOPSIS()  # Call the function corresponding to MAUT_TOPSIS.IPYNB
+    elif option == 'Sensitivity Analysis':  
+        SENSITIVITY_TEST()
+
+      
+            
