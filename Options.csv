@@ -1,0 +1,141 @@
+S.no,Company,Vendor,Abbreviated Vendor,overall_score
+122.0,Ma’aden,GlassPoint,Vendor 1,0.5851747095039573
+133.0,The Mosaic Company,Plant Response,Vendor 2,0.5461986345138399
+44.0,Rio Tinto,Carbon Capture,Vendor 3,0.5348022959898654
+70.0,Glencore,BluVein,Vendor 4,0.49692388928127
+113.0,Fortescue Metals Group Ltd,HyET Solar,Vendor 5,0.4938133543123168
+46.0,Rio Tinto,Aymium,Vendor 6,0.4935905559479366
+4.0,BHP,"University of Melbourne, Stanford and Cambridge",Vendor 7,0.4929981333871456
+15.0,BHP,Energy Vault,Vendor 8,0.4924608089289362
+17.0,BHP,BluVein,Vendor 9,0.4801521566092815
+66.0,Vale,BluVein,Vendor 10,0.4775905559479366
+69.0,Glencore,FREYR,Vendor 11,0.4731690484929399
+110.0,Fortescue Metals Group Ltd,Windlab,Vendor 12,0.4716769246291999
+7.0,BHP,Cemvita Factory,Vendor 13,0.4714673675421395
+36.0,Rio Tinto,Alcoa,Vendor 14,0.469896019013666
+48.0,Rio Tinto,Electric Hydrogen,Vendor 15,0.46817603336360275
+1.0,BHP,University College London,Vendor 16,0.4680021958717612
+75.0,Freeport-McMoran Inc.,Jetti Resources,Vendor 17,0.46670490700568396
+57.0,Vale,Minas Gerais state,Vendor 18,0.46510669353380346
+108.0,Fortescue Metals Group Ltd,Williams Advanced Engineering,Vendor 19,0.4490692720770412
+19.0,BHP,Lifezone,Vendor 20,0.44896698637194704
+120.0,Barrick Gold,Cisco,Vendor 21,0.4476831184011129
+90.0,Anglo American,HyET Hydrogen,Vendor 22,0.4467647058823529
+53.0,Rio Tinto,Scania,Vendor 23,0.4398226768968457
+112.0,Fortescue Metals Group Ltd,Tree energy solutions,Vendor 24,0.43551013342419026
+72.0,Glencore,Britishvolt,Vendor 25,0.4290173427563284
+67.0,Glencore,China Huaneng,Vendor 26,0.42854675452103436
+2.0,BHP,SaskPower,Vendor 27,0.4237395566922421
+135.0,The Mosaic Company,AgBiome,Vendor 28,0.42040241482527824
+139.0,Newcrest Mining Limited,BluVein,Vendor 29,0.41694088450006994
+6.0,BHP,Mitsubishi Development,Vendor 30,0.41685251491901104
+8.0,BHP,Baowu,Vendor 31,0.4087015098629006
+104.0,Newmont,Caterpillar,Vendor 32,0.40780789022298464
+76.0,Freeport-McMoran Inc.,Accenture,Vendor 33,0.4039059294386708
+16.0,BHP,Antora,Vendor 34,0.39485167410241
+21.0,BHP,University of Newcastle,Vendor 35,0.3920905559479367
+86.0,Anglo American,Sanergy Organic,Vendor 36,0.3900033184228523
+140.0,Newcrest Mining Limited,"Rio Tinto, Elexon Electronics, CRCMining",Vendor 37,0.3862171544134098
+45.0,Rio Tinto,BlueScope,Vendor 38,0.384680893283557
+23.0,BHP,Kobold Metals,Vendor 39,0.3840540140584536
+111.0,Fortescue Metals Group Ltd,zhero,Vendor 40,0.3824885188320984
+125.0,China Molybdenum,"Glencore, Eurasian Resources Group",Vendor 41,0.38239447751656414
+54.0,Rio Tinto,"Newcrest, Elexon Electronics, CRCMining",Vendor 42,0.3804996015260456
+134.0,The Mosaic Company,BioConsortia,Vendor 43,0.3803699256718125
+28.0,BHP,Circulor,Vendor 44,0.3775153084675838
+74.0,China Shenhua Energy Company limited,Shell,Vendor 45,0.3757124070897656
+27.0,BHP,NYK,Vendor 46,0.37403966972723907
+73.0,Glencore,ABT,Vendor 47,0.3716729559748428
+103.0,Anglo American ,Hypermotive,Vendor 48,0.36983819325328765
+80.0,Anglo American,Furuya Eco-front Technology,Vendor 49,0.36976470588235294
+31.0,BHP,Rio Tinto and other technology providers,Vendor 50,0.36843640575030817
+25.0,BHP,Plotlogic,Vendor 51,0.3683303624480095
+20.0,BHP,Eavor,Vendor 52,0.3682471216045023
+107.0,Norilsk Nickel,Atomyze,Vendor 53,0.3662941176470588
+42.0,Rio Tinto,University of Nottingham,Vendor 54,0.36573177950425456
+136.0,The Mosaic Company,Sound Agriculture,Vendor 55,0.3639783629861322
+18.0,BHP,POSCO,Vendor 56,0.3629451729084504
+5.0,BHP,Carbon Engineering,Vendor 57,0.35781720330263017
+55.0,Rio Tinto,BHP and other technology provider,Vendor 58,0.35748672021571704
+116.0,Fortescue Metals Group Ltd,Liebherr,Vendor 59,0.35637087810986384
+105.0,Newmont,Epiroc,Vendor 60,0.355979797979798
+37.0,Rio Tinto,Baowu Steel,Vendor 61,0.3535390979719504
+68.0,Glencore,"CMOC, Eurasian Resource Group",Vendor 62,0.35006822897702605
+118.0,Fortescue Metals Group Ltd,"Siemens Energy, GeoPura",Vendor 63,0.34996704437610676
+95.0,Anglo American,Hydrogen MEM Tech,Vendor 64,0.3496774510535067
+41.0,Rio Tinto,Caterpillar,Vendor 65,0.34620633639390574
+93.0,Anglo American,Amogy,Vendor 66,0.3451983698393967
+22.0,BHP,Verdagy,Vendor 67,0.3450837453334679
+71.0,Glencore,Managem,Vendor 68,0.34487611920001054
+43.0,Rio Tinto,Université du Québec à Chicoutimi,Vendor 69,0.3445396697272391
+119.0,Fortescue Metals Group Ltd,NREL,Vendor 70,0.3441969294840018
+39.0,Rio Tinto,ARENA,Vendor 71,0.34073177950425454
+101.0,Anglo American,Hydrogen Refueling Solutions,Vendor 72,0.3397270821421765
+127.0,Teck Resources,Jetti Resources,Vendor 73,0.3394247352158852
+128.0,Teck Resources,Ardok,Vendor 74,0.33918547244388103
+138.0,Newcrest Mining Limited,Tata Consultancy Services Limited,Vendor 75,0.33877661720715335
+47.0,Rio Tinto,Innord Inc.,Vendor 76,0.33873177950425454
+12.0,BHP,Jetti Resources,Vendor 77,0.33685570417293625
+126.0,First Quantum Minerala,Aquirian Limited,Vendor 78,0.33650592446688576
+64.0,Vale,POSCO,Vendor 79,0.336437897285844
+59.0,Vale,Ternium,Vendor 80,0.3355396697272391
+13.0,BHP,Electra (Iron and Steel Mining),Vendor 81,0.33517013351192765
+40.0,Rio Tinto,POSCO,Vendor 82,0.33501422661689034
+131.0,The Mosaic Company,Genica,Vendor 83,0.3342857655354881
+34.0,Rio Tinto,University of Queensland,Vendor 84,0.33187300306057244
+102.0,Anglo American,Ergosup,Vendor 85,0.33094911377930253
+91.0,Anglo American,Starfire Energy,Vendor 86,0.32937076648841357
+132.0,The Mosaic Company,Rantizo,Vendor 87,0.32520217715445243
+56.0,Vale,Boston Metal,Vendor 88,0.3250721976313831
+11.0,BHP,HBIS,Vendor 89,0.3213910382110932
+62.0,Vale,Valin,Vendor 90,0.31848878350654153
+29.0,BHP,Tata Steel,Vendor 91,0.3173921568627451
+65.0,Vale,Baowu Steel,Vendor 92,0.31277123061917733
+9.0,BHP,Boston Metal,Vendor 93,0.3103118834925524
+87.0,Anglo American,Salzgitter Flachstahl,Vendor 94,0.3058221168398749
+96.0,Anglo American,EH Group,Vendor 95,0.3036875520636077
+106.0,Norilsk Nickel,Techint Group,Vendor 96,0.302920716112532
+82.0,Anglo American,Primus Power,Vendor 97,0.3018181818181819
+3.0,BHP,Peking University,Vendor 98,0.3011090926638386
+35.0,Rio Tinto,iGate-Patni,Vendor 99,0.2984150153759767
+60.0,Vale,"Sansteel, Xiamen ITG",Vendor 100,0.29710456395251067
+24.0,BHP,Summit Nanotech,Vendor 101,0.289013228847857
+51.0,Rio Tinto,Nano One Materials,Vendor 102,0.2884565463543411
+58.0,Vale,SHS,Vendor 103,0.28825722261460335
+100.0,Anglo American,Hystar,Vendor 104,0.28818475543447797
+89.0,Anglo American ,Greyrock  Energy,Vendor 105,0.2877443132770547
+123.0,Ma’aden,Emirates Global Aluminium,Vendor 106,0.28432169058241535
+61.0,Vale,Jiangsu Shagang,Vendor 107,0.2827203443984798
+129.0,Teck Resources,DLT Labs,Vendor 108,0.2808627450980392
+94.0,Anglo American,Noble Gas,Vendor 109,0.2758590786502286
+109.0,Fortescue Metals Group Ltd,Universal Hydrogen,Vendor 110,0.26992403453538427
+79.0,Anglo American,First Mode,Vendor 111,0.26725946479220625
+117.0,Fortescue Metals Group Ltd,"Hyundai, CSIRO",Vendor 112,0.2666564364876386
+10.0,BHP,JFE Steel,Vendor 113,0.26494517290845043
+63.0,Vale,Nippon Steel,Vendor 114,0.26377123061917734
+50.0,Rio Tinto,ElectraLith,Vendor 115,0.25868736147851146
+77.0,Anglo American,Mission Zero,Vendor 116,0.2561786567113981
+115.0,Fortescue Metals Group Ltd,Deutsche Bahn,Vendor 117,0.2524015623103593
+88.0,Anglo American,ENGIE,Vendor 118,0.2522572226146033
+52.0,Rio Tinto,Shougang Group,Vendor 119,0.25168089328355703
+78.0,Anglo American,Supercritical Solutions,Vendor 120,0.24827947622731197
+38.0,Rio Tinto,Nippon Steel,Vendor 121,0.24639215686274513
+97.0,Anglo American,C-Zero,Vendor 122,0.24137686521149337
+92.0,Anglo American,ZeroAvia,Vendor 123,0.2398248230507556
+121.0,Ma’aden,King Fahd University of Petroleum & Minerals,Vendor 124,0.23222506393861891
+98.0,Anglo American,Infinium,Vendor 125,0.23100331842285232
+32.0,Rio Tinto,University of Sydney,Vendor 126,0.2213544093153706
+83.0,Anglo American,Hydrogenious technology,Vendor 127,0.22044809870650728
+114.0,Fortescue Metals Group Ltd,Sparc Hydrogen,Vendor 128,0.21912977139049622
+137.0,The Mosaic Company,University of Adelaide,Vendor 129,0.2186769246291999
+49.0,Rio Tinto,GMG,Vendor 130,0.2165328218243819
+99.0,Anglo American,Hazer Group,Vendor 131,0.2141043285238624
+33.0,Rio Tinto,Curtin University,Vendor 132,0.19897018976133973
+14.0,BHP,CSIRO,Vendor 133,0.19644474665099093
+84.0,Anglo American,Thyssenkrupp Steel,Vendor 134,0.19605882352941176
+85.0,Anglo American,Nippon Steel,Vendor 135,0.19205882352941178
+130.0,Teck Resources,"Mining Microbiome Analysis Platform (MMAP), University of British Columbia",Vendor 136,0.18657515218780482
+124.0,Ma’aden,IFDC,Vendor 137,0.17846035805626598
+26.0,BHP,Blue Carbon Market,Vendor 138,0.1551043285238624
+30.0,BHP,Colorado School of Mines,Vendor 139,0.11517476555839726
+81.0,Anglo American,Platinum Group Metals,Vendor 140,0.1047124070897656
