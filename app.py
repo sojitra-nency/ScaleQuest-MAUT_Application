@@ -5,7 +5,7 @@ import matplotlib
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 
-
+matplotlib.use("Tkagg")
 
 def MAUT_1():
     st.title("MAUT = Multi Attribute Utility Theory")
@@ -85,7 +85,7 @@ def MAUT_1():
     ax.set_ylabel('Utility Score')
     ax.set_title('Utility Curve')
     ax.tick_params(axis='x', rotation=90, labelsize=2)
-    st.line_chart(fig)
+    st.pyplot(fig)
 
 def MAUT_AHP():
     
