@@ -85,7 +85,7 @@ def MAUT_1():
     ax.set_ylabel('Utility Score')
     ax.set_title('Utility Curve')
     ax.tick_params(axis='x', rotation=90, labelsize=2)
-    st.pyplot(fig)
+    st.line_chart(fig)
 
 def MAUT_AHP():
     
