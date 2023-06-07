@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
-matplotlib.use('TkAgg')
+
 
 
 def MAUT_1():
