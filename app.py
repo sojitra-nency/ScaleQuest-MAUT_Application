@@ -344,7 +344,6 @@ def MAUT_TOPSIS():
 
 
 
-
 def SENSITIVITY_TEST():
     # Read the Excel file and skip the first row
     data = pd.read_excel(upload_file, skiprows=1)
@@ -408,7 +407,7 @@ def SENSITIVITY_TEST():
 
 
 # Create a sidebar with options for each IPYNB file
-option = st.sidebar.selectbox('Select an IPYNB file', ['MAUT_1', 'MAUT_AHP', 'MAUT_LOSS', 'MAUT_TOPSIS','SENSITIVITY_TEST'])
+option = st.sidebar.selectbox('Select an IPYNB file', ['MAUT_1', 'MAUT_AHP', 'MAUT_LOSS', 'MAUT_TOPSIS','Sensitivity Analysis'])
 upload_file = st.file_uploader("Upload a CSV file", type=["xlsx"])
 if upload_file is not None:
     # Run the selected IPYNB file function
@@ -424,4 +423,6 @@ if upload_file is not None:
         SENSITIVITY_TEST()
 
       
+            
+
             
