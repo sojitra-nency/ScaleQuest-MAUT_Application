@@ -407,11 +407,11 @@ def SENSITIVITY_TEST():
 
 
 # Create a sidebar with options for each IPYNB file
-option = st.sidebar.selectbox('Select an IPYNB file', ['MAUT_1', 'MAUT_AHP', 'MAUT_LOSS', 'MAUT_TOPSIS','Sensitivity Analysis'])
+option = st.sidebar.selectbox('Select an approach', ['MANUAL', 'AHP', 'LOSS', 'TOPSIS','SENSITIVITY_TEST'])
 upload_file = st.file_uploader("Upload a CSV file", type=["xlsx"])
 if upload_file is not None:
     # Run the selected IPYNB file function
-    if option == 'MAUT_1':
+    if option == 'MANUAL':
         MAUT_1()  # Call the function corresponding to MAUT_1.IPYNB
     elif option == 'MAUT_AHP':
         MAUT_AHP()  # Call the function corresponding to MAUT_AHP.IPYNB
@@ -419,7 +419,7 @@ if upload_file is not None:
         MAUT_LOSS()  # Call the function corresponding to MAUT_LOSS.IPYNB
     elif option == 'MAUT_TOPSIS':
         MAUT_TOPSIS()  # Call the function corresponding to MAUT_TOPSIS.IPYNB
-    elif option == 'Sensitivity Analysis':  
+    elif option == 'SENSITIVITY_TEST':  
         SENSITIVITY_TEST()
 
       
