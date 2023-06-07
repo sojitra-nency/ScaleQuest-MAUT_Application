@@ -351,20 +351,36 @@ def SENSITIVITY_TEST():
     # Define a range of weights to test
     weight_range = [0.01, 0.05]
 
+    # Define attribute weights outside the loop
+    weights = {
+        'IRR': 0.0,  # Placeholder value, will be updated in the loop
+        'Strategic fit': 0.1,
+        'Technical Feasibility': 0.15,
+        'Uniqueness of R&D': 0.1,
+        'Reputational risk': 0.1,
+        'Market and Business risk': 0.1,
+        'Scalability': 0.1,
+        'Regulatory risk': 0.1,
+        'Market factors': 0.05
+    }
+
+    # Calculate overall scores
+    for attribute in weights:
+        if attribute in data.columns:
+            data[attribute + '_weighted'] = data[attribute] * weights[attribute]
+
+    # Calculate overall scores
+    weighted_columns = [col for col in data.columns if col.endswith('_weighted')]
+    data['overall_score'] = data[weighted_columns].sum(axis=1)
+
+    # Fit the scaler on the overall_score values
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaler.fit(data[['overall_score']])
+
     # Perform sensitivity test for each weight
     for weight in weight_range:
-        # Update the weights dictionary with the new weight
-        weights = {
-            'IRR': weight,
-            'Strategic fit': 0.1,
-            'Technical Feasibility': 0.15,
-            'Uniqueness of R&D': 0.1,
-            'Reputational risk': 0.1,
-            'Market and Business risk': 0.1,
-            'Scalability': 0.1,
-            'Regulatory risk': 0.1,
-            'Market factors': 0.05
-        }
+        # Update the weight for 'IRR' attribute
+        weights['IRR'] = weight
 
         # Calculate weighted scores for each attribute
         for attribute in weights:
@@ -386,20 +402,17 @@ def SENSITIVITY_TEST():
         ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Options.csv', index=False)
         output = pd.read_csv('Options.csv')
 
-        # Scale the overall scores between 0 and 1 using Min-Max normalization
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        output['normalized_score'] = scaler.fit_transform(output[['overall_score']])
+        # Scale the overall scores using the fitted scaler
+        output['normalized_score'] = scaler.transform(output[['overall_score']])
 
         # Plot utility curve
         fig, ax = plt.subplots()
         ax.plot(output['Abbreviated Vendor'], output['normalized_score'])
         ax.set_xlabel('Vendor')
         ax.set_ylabel('Utility Score')
-        ax.set_title('Utility Curve')
+        ax.set_title('Utility Curve (Weight for IRR: {})'.format(weight))
         ax.tick_params(axis='x', rotation=90, labelsize=2)
         st.pyplot(fig)
-
-
 
 
 
