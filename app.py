@@ -349,7 +349,7 @@ def SENSITIVITY_TEST():
     data = pd.read_excel(upload_file, skiprows=1)
 
     # Define a range of weights to test
-    weight_range = [0.01, 0.05]
+    weight_range = [0.01, 0.25]
 
     # Define attribute weights outside the loop
     weights = {
@@ -368,6 +368,8 @@ def SENSITIVITY_TEST():
     for attribute in weights:
         if attribute in data.columns:
             data[attribute + '_weighted'] = data[attribute] * weights[attribute]
+        else:
+            data[attribute + '_weighted'] = 0.0
 
     # Calculate overall scores
     weighted_columns = [col for col in data.columns if col.endswith('_weighted')]
@@ -386,6 +388,8 @@ def SENSITIVITY_TEST():
         for attribute in weights:
             if attribute in data.columns:
                 data[attribute + '_weighted'] = data[attribute] * weights[attribute]
+            else:
+                data[attribute + '_weighted'] = 0.0
 
         # Calculate overall scores
         weighted_columns = [col for col in data.columns if col.endswith('_weighted')]
@@ -401,9 +405,10 @@ def SENSITIVITY_TEST():
         # Save ranked options to CSV
         ranked_data[['S.no', 'Company', 'Vendor', 'Abbreviated Vendor', 'overall_score']].to_csv('Options.csv', index=False)
         output = pd.read_csv('Options.csv')
-
+        st.write(output)
         # Scale the overall scores using the fitted scaler
         output['normalized_score'] = scaler.transform(output[['overall_score']])
+        
 
         # Plot utility curve
         fig, ax = plt.subplots()
@@ -413,8 +418,6 @@ def SENSITIVITY_TEST():
         ax.set_title('Utility Curve (Weight for IRR: {})'.format(weight))
         ax.tick_params(axis='x', rotation=90, labelsize=2)
         st.pyplot(fig)
-
-
 
 
 
