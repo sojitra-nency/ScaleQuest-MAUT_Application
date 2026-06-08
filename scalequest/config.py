@@ -50,6 +50,21 @@ ATTRIBUTES = [
     "Market factors",
 ]
 
+#: Direction of each criterion: benefit (maximize) or cost (minimize). The three
+#: risk attributes are costs; everything else is a benefit. Cost criteria are
+#: inverted after normalization so that higher is always better downstream.
+CRITERIA_DIRECTION = {
+    "IRR": "benefit",
+    "Strategic fit": "benefit",
+    "Technical Feasibility": "benefit",
+    "Uniqueness of R&D": "benefit",
+    "Reputational risk": "cost",
+    "Market and Business risk": "cost",
+    "Scalability": "benefit",
+    "Regulatory risk": "cost",
+    "Market factors": "benefit",
+}
+
 #: Fixed weights for the MANUAL weighted-sum (also the base for the sensitivity sweep).
 MANUAL_WEIGHTS = {
     "IRR": 0.2,
@@ -86,7 +101,31 @@ LOSS_RATE = 1
 #: IRR weights tested by the sensitivity analysis.
 SENSITIVITY_IRR_RANGE = [0.01, 0.25]
 
+# --- Method tuning -------------------------------------------------------------
+#: VIKOR strategy weight (0.5 = balance group utility and individual regret).
+VIKOR_V = 0.5
+
+#: AHP consistency ratio threshold; above this the pairwise matrix is "inconsistent".
+CR_THRESHOLD = 0.10
+
 # --- Output column selections --------------------------------------------------
 RANK_COLUMNS = ["S.no", "Company", "Vendor", "Abbreviated Vendor", "overall_score"]
 #: TOPSIS deliberately omits the full "Vendor" name in its ranked table.
 TOPSIS_RANK_COLUMNS = ["S.no", "Company", "Abbreviated Vendor", "overall_score"]
+
+# --- Precomputed AHP values (matrix is static, so compute once at import) -------
+# Imported here from the pure scoring module; scoring must NOT import config back.
+from scalequest.scoring import (  # noqa: E402  (deliberate bottom import)
+    DEFAULT_SAATY_RI,
+    ahp_consistency,
+    ahp_weights,
+)
+
+#: Saaty Random Index table, surfaced from scoring for any UI that wants it.
+SAATY_RI = DEFAULT_SAATY_RI
+
+#: AHP priority weights {attribute: weight} derived from AHP_MATRIX.
+AHP_WEIGHTS = ahp_weights(AHP_MATRIX, ATTRIBUTES)
+
+#: AHP consistency {lambda_max, CI, CR} for AHP_MATRIX.
+AHP_CONSISTENCY = ahp_consistency(AHP_MATRIX)
