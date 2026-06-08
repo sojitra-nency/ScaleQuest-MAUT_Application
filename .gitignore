@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Generated analysis outputs (no longer written, kept as a guard)
+MAUT.csv
+AHP.csv
+LOSS.csv
+TOPSIS.csv
+Options.csv
+
+# OS / editor cruft
+.DS_Store
+
+# Playwright MCP test artifacts
+.playwright-mcp/

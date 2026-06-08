@@ -1,32 +1,59 @@
-# ScaleQuest 
+# ScaleQuest
 
-Welcome to the ScaleQuest-MAUT (Multi-Attribute Utility Theory) application! This repository contains the code and data files for a powerful decision-making tool that uses MAUT analysis. The application is hosted on Streamlit and can be accessed at [https://maut-1234.streamlit.app/](https://maut-1234.streamlit.app/).
+Welcome to the **ScaleQuest-MAUT** (Multi-Attribute Utility Theory) application! This repository
+contains a decision-making tool that ranks options across multiple weighted criteria using several
+MAUT / multi-criteria decision-analysis techniques. The app is hosted on Streamlit at
+[https://maut-1234.streamlit.app/](https://maut-1234.streamlit.app/).
 
-## Key Features
+You upload an Excel dataset, choose an approach in the sidebar, and ScaleQuest normalizes the data,
+scores every option, ranks them, and plots a utility curve.
 
-- **Consolidated Data**: The `Consolidated data.xlsx` file provides a comprehensive dataset for the analysis.
-- **Normalized Data**: Use the `Consolidated data_normalized.csv` file, which contains preprocessed and normalized data for accurate calculations.
-- **Advanced MAUT Techniques**: Explore different MAUT approaches with Jupyter Notebooks:
-  - `MAUT_1.ipynb`: Perform MAUT analysis with customizable parameters.
-  - `MAUT_AHP.ipynb`: Utilize Analytic Hierarchy Process (AHP) for weighted decision-making.
-  - `MAUT_LOSS.ipynb`: Optimize decision-making using Linear Optimization for Stochastic Systems (LOSS).
-  - `MAUT_TOPSIS.ipynb`: Employ Technique for Order of Preference by Similarity to Ideal Solution (TOPSIS) for ranking alternatives.
-- **Streamlit Application**: Experience the interactive and user-friendly MAUT application by running `app.py` locally.
+## Decision methods
 
-## Visualization and Workflow
+- **MANUAL** — weighted-sum utility using fixed, hand-set attribute weights.
+- **AHP** (Analytic Hierarchy Process) — weights derived from a pairwise-comparison matrix via the
+  geometric-mean method, then a weighted-sum utility.
+- **LOSS** (Level of Service Satisfaction) — AHP-derived weights applied through an exponential
+  utility function.
+- **TOPSIS** (Technique for Order of Preference by Similarity to Ideal Solution) — ranks options by
+  their relative closeness to the ideal-best and ideal-worst solutions.
+- **SENSITIVITY_TEST** — sweeps the IRR weight to show how the ranking responds.
 
-To help you understand the analysis and workflow, we provide visual representations of the MAUT analysis in PNG format:
-- `maut_1-AHP.drawio.png`: Diagram illustrating the AHP-based MAUT analysis.
-- `maut_1-LOSS.drawio.png`: Diagram showcasing the LOSS-based MAUT analysis.
-- `maut_1-TOPSIS.drawio.png`: Diagram demonstrating the TOPSIS-based MAUT analysis.
-- `maut_1-AHP-WORKING.drawio.png`: Diagram illustrating the AHP-based MAUT analysis.
-- `maut_1-LOSS-WORKING.drawio.png`: Diagram showcasing the LOSS-based MAUT analysis.
-- `maut_1-TOPSIS-WORKING.drawio.png`: Diagram demonstrating the TOPSIS-based MAUT analysis.
+## Project structure
 
-## Getting Started
+```
+app.py                 # Streamlit entry point (UI + method dispatch)
+scalequest/            # Application package
+  config.py            # Paths, diagram pairs, and all weights / the AHP matrix
+  preprocessing.py     # Shared data loading + Min-Max normalization
+  scoring.py           # Scoring engines + ranking helper
+  plotting.py          # Utility-curve plot
+  methods.py           # The five MAUT methods
+data/                  # Consolidated data.xlsx (sample) + normalized CSV
+assets/diagrams/       # Method / workflow diagrams (*.drawio.png)
+notebooks/             # Prototype notebooks for each method
+requirements.txt
+```
 
-To run the ScaleQuest locally and start making informed decisions, follow these steps:
+## Data
 
-1. Install the required Python dependencies by running `pip install -r requirements.txt`.
-2. Launch the Streamlit application by executing `streamlit run app.py`.
-3. Access the application in your web browser at `http://localhost:8501`.
+- `data/Consolidated data.xlsx` — sample dataset you can upload to try the app.
+- `data/Consolidated data_normalized.csv` — a pre-normalized snapshot for reference.
+
+## Notebooks
+
+Prototype analyses for each method live in `notebooks/`: `MAUT_1.ipynb`, `MAUT_AHP.ipynb`,
+`MAUT_LOSS.ipynb`, `MAUT_TOPSIS.ipynb`, and `main_maut.ipynb`.
+
+## Visualization
+
+Workflow diagrams (concept + "working" pairs) are in `assets/diagrams/`, e.g.
+`maut_1-AHP.drawio.png` / `maut_1-AHP-WORKING.drawio.png`, and likewise for `LOSS`, `TOPSIS`, and
+`MAUT_1`. They are shown alongside each method in the app.
+
+## Getting started
+
+1. Install the dependencies: `pip install -r requirements.txt`.
+2. Launch the app from the repository root: `streamlit run app.py`.
+3. Open `http://localhost:8501`, upload an `.xlsx` dataset (e.g. `data/Consolidated data.xlsx`),
+   and pick an approach.
