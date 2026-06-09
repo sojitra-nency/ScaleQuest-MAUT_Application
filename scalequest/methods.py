@@ -180,7 +180,8 @@ def compare(file, weights=None, use_costs=True):
     borda = borda_scores(rankings_by_method, len(result))
     result["Consensus (Borda)"] = result["S.no"].map(borda)
     result = result.sort_values("Consensus (Borda)", ascending=False).reset_index(drop=True)
-    result.insert(0, "Abbreviated Vendor", [f"Vendor {i + 1}" for i in range(len(result))])
+    result.insert(0, "Abbreviated Vendor",
+        [f"#{i + 1} {v[:14]}" for i, v in enumerate(result["Vendor"])])
 
     st.dataframe(result, use_container_width=True)
 

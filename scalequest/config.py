@@ -78,9 +78,6 @@ MANUAL_WEIGHTS = {
     "Market factors": 0.05,
 }
 
-#: TOPSIS weights, aligned positionally with ATTRIBUTES.
-TOPSIS_WEIGHTS = [0.1, 0.15, 0.1, 0.15, 0.05, 0.1, 0.05, 0.1, 0.2]
-
 #: AHP / LOSS pairwise-comparison matrix (rows/cols aligned with ATTRIBUTES).
 #: Weights are derived from this via the geometric-mean method.
 AHP_MATRIX = np.array([
@@ -98,8 +95,8 @@ AHP_MATRIX = np.array([
 #: Rate of increase in the LOSS exponential utility function.
 LOSS_RATE = 1
 
-#: IRR weights tested by the sensitivity analysis.
-SENSITIVITY_IRR_RANGE = [0.01, 0.25]
+#: IRR weights tested by the sensitivity analysis — 8 points from near-zero to 0.50.
+SENSITIVITY_IRR_RANGE = np.linspace(0.05, 0.50, 8).round(3).tolist()
 
 # --- Method tuning -------------------------------------------------------------
 #: VIKOR strategy weight (0.5 = balance group utility and individual regret).

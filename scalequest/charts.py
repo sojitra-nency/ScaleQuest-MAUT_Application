@@ -15,6 +15,7 @@ def utility_curve_chart(output, title="Utility Curve"):
     Mutates ``output`` to add a ``normalized_score`` column (Min-Max of
     ``overall_score``), preserving the previous output contract.
     """
+    output = output.copy()
     output["normalized_score"] = MinMaxScaler().fit_transform(output[["overall_score"]])
 
     tooltip = [c for c in ["Vendor", "Abbreviated Vendor", "Company", "overall_score",

@@ -45,7 +45,13 @@ def _weight_panel():
         st.sidebar.warning("All weights are 0 — falling back to equal weights.")
         n = len(config.ATTRIBUTES)
         return {attr: 1.0 / n for attr in config.ATTRIBUTES}
-    return {attr: value / total for attr, value in raw.items()}
+    normalized = {attr: value / total for attr, value in raw.items()}
+    if abs(total - 1.0) > 0.005:
+        st.sidebar.caption(
+            f"Slider sum = {total:.2f} — normalized to 100%. Effective: "
+            + " · ".join(f"{a[:4]}={v:.0%}" for a, v in normalized.items())
+        )
+    return normalized
 
 
 option = st.sidebar.selectbox("Select an approach", list(DISPATCH.keys()))
