@@ -406,12 +406,35 @@ All options are equidistant from the ideal. This happens when options cluster un
 
 ---
 
-## License & Credits
+## License
 
-Built by Sojitra-Nency and contributors.
+ScaleQuest is released under the **MIT License**. See [LICENSE](LICENSE) for full details.
+
+**TL;DR:** You're free to use, modify, and distribute this software commercially and privately, with no warranty. Just include a copy of the license.
 
 ---
 
-## Questions?
+## Citation
 
-For issues, feature requests, or questions, check the repository or contact the maintainers.
+If you use ScaleQuest in academic work, please cite as:
+
+```
+Sojitra-Nency. (2026). ScaleQuest: MCDA Ranking Tool for Mining R&D.
+Retrieved from https://github.com/sojitra-nency/ScaleQuest-MAUT_Application
+```
+
+---
+
+## Authors & Contributors
+
+- **Sojitra-Nency** — primary author and maintainer
+- Built with Streamlit, pandas, numpy, scikit-learn, and Altair
+
+---
+
+## Questions & Support
+
+For issues, feature requests, bug reports, or questions:
+- Open an issue on [GitHub](https://github.com/sojitra-nency/ScaleQuest-MAUT_Application/issues)
+- Check existing documentation in this README and the `/notebooks` folder
+- Review the design decisions section for understanding how the app works

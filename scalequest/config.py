@@ -107,7 +107,8 @@ CR_THRESHOLD = 0.10
 
 # --- Output column selections --------------------------------------------------
 RANK_COLUMNS = ["S.no", "Company", "Vendor", "Abbreviated Vendor", "overall_score"]
-#: TOPSIS deliberately omits the full "Vendor" name in its ranked table.
+#: TOPSIS_RANK_COLUMNS deliberately omits the full "Vendor" name to reduce table width
+#: and avoid clutter in the TOPSIS ranked output (Company is sufficient for identification).
 TOPSIS_RANK_COLUMNS = ["S.no", "Company", "Abbreviated Vendor", "overall_score"]
 
 # --- Precomputed AHP values (matrix is static, so compute once at import) -------

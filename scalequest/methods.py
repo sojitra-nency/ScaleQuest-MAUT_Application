@@ -170,8 +170,12 @@ def compare(file, weights=None, use_costs=True):
     rankings_by_method = {}
     for name, fn in runners.items():
         scored = fn(base.copy())[["S.no", "overall_score"]].copy()
-        scored["score"] = MinMaxScaler().fit_transform(scored[["overall_score"]])
-        scored["rank"] = scored["overall_score"].rank(ascending=False, method="min").astype(int)
+        s = scored["overall_score"]
+        if s.max() == s.min():
+            scored["score"] = 0.5
+        else:
+            scored["score"] = (s - s.min()) / (s.max() - s.min())
+        scored["rank"] = s.rank(ascending=False, method="min").astype(int)
         rankings_by_method[name] = dict(zip(scored["S.no"], scored["rank"]))
         result = result.merge(
             scored[["S.no", "score", "rank"]].rename(
@@ -184,7 +188,7 @@ def compare(file, weights=None, use_costs=True):
     result["Consensus (Borda)"] = result["S.no"].map(borda)
     result = result.sort_values("Consensus (Borda)", ascending=False).reset_index(drop=True)
     result.insert(0, "Abbreviated Vendor",
-        [f"#{i + 1} {v[:14]}" for i, v in enumerate(result["Vendor"])])
+        [f"#{row['S.no']} {row['Company'][:12]}" for _, row in result.iterrows()])
 
     st.dataframe(result, use_container_width=True)
 
