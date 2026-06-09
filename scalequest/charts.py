@@ -26,7 +26,7 @@ def utility_curve_chart(output, title="Utility Curve"):
         .encode(
             x=alt.X(
                 "Abbreviated Vendor:N",
-                sort=alt.SortField(field="normalized_score", order="descending"),
+                sort=None,
                 axis=alt.Axis(labelAngle=-45, labelOverlap=True, labelLimit=120),
                 title="Vendor",
             ),

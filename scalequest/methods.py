@@ -46,6 +46,8 @@ def _prepare(file, use_costs):
 
 
 def _render(output, title="Utility Curve"):
+    if output["overall_score"].nunique() == 1:
+        st.info("All options scored identically under this method.")
     st.write(output)
     st.altair_chart(utility_curve_chart(output, title), use_container_width=True)
 
@@ -66,7 +68,7 @@ def _ahp_consistency_note():
 
 
 def manual(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = weights if weights is not None else config.MANUAL_WEIGHTS
     st.title("MAUT = Multi Attribute Utility Theory")
     _show_diagrams("MANUAL")
 
@@ -90,7 +92,7 @@ def loss(file, weights=None, use_costs=True):
 
     transform = st.radio(
         "Utility transform", ["exponential", "quadratic"], horizontal=True,
-        help="exponential: exp(x)·w (default). quadratic: x²·w (penalizes mediocre scores).",
+        help=f"exponential: exp({config.LOSS_RATE}·x)·w (default). quadratic: x²·w (penalizes mediocre scores).",
     )
     data = loss_score(
         _prepare(file, use_costs), config.AHP_WEIGHTS, rate=config.LOSS_RATE, transform=transform
@@ -99,7 +101,7 @@ def loss(file, weights=None, use_costs=True):
 
 
 def topsis(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = weights if weights is not None else config.MANUAL_WEIGHTS
     st.title("TOPSIS = Technique for Order Preference by Similarity to Ideal Solution.")
     _show_diagrams("TOPSIS")
 
@@ -113,16 +115,17 @@ def topsis(file, weights=None, use_costs=True):
 
 
 def vikor(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = weights if weights is not None else config.MANUAL_WEIGHTS
     st.title("VIKOR = Compromise ranking (VlseKriterijumska Optimizacija)")
     st.caption("Ranks by the compromise index Q (lower Q = better; shown here as a utility curve).")
+    st.caption("Y-axis = −Q (negated compromise index). Higher = lower Q = better compromise.")
 
     data = vikor_score(_prepare(file, use_costs), config.ATTRIBUTES, weights, v=config.VIKOR_V)
     _render(rank_and_select(data, config.RANK_COLUMNS), "Utility Curve")
 
 
 def wpm(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = weights if weights is not None else config.MANUAL_WEIGHTS
     st.title("WPM = Weighted Product Model")
     st.caption("Score = ∏ xⱼ^wⱼ (criteria max-normalized to avoid structural zeros).")
 
@@ -131,7 +134,7 @@ def wpm(file, weights=None, use_costs=True):
 
 
 def sensitivity(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = weights if weights is not None else config.MANUAL_WEIGHTS
     st.title("Sensitivity Test — IRR weight sweep")
 
     data = _prepare(file, use_costs)

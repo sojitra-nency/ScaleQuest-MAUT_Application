@@ -3,6 +3,10 @@
 This module is intentionally PURE: it imports only numpy/pandas, never
 ``streamlit`` or ``scalequest.config`` (config imports a couple of helpers from
 here at import time, so the dependency must stay one-directional).
+
+CRITICAL CONSTRAINT: Do not import scalequest.config — it will cause a circular
+import at module load time (config imports ahp_weights, ahp_consistency from here).
+Pass all needed values as function arguments.
 """
 
 import numpy as np
@@ -62,9 +66,7 @@ def ahp_consistency(matrix, ri_table=DEFAULT_SAATY_RI):
 # --- Scoring engines (each sets ``overall_score``; higher = better) ------------
 def weighted_sum(data, weights):
     """Additive utility (WSM / MANUAL / AHP): each attribute scaled by its weight."""
-    for attribute, weight in weights.items():
-        data[attribute + "_weighted"] = data[attribute] * weight
-    data["overall_score"] = data.filter(like="_weighted").sum(axis=1)
+    data["overall_score"] = sum(data[a] * w for a, w in weights.items())
     return data
 
 
@@ -75,12 +77,10 @@ def loss_score(data, weights, rate=1, transform="exponential"):
     ``transform="quadratic"``: ``(x ** 2) * w`` (notebook variant; penalizes
     mediocre scores more sharply).
     """
-    for attribute, weight in weights.items():
-        if transform == "quadratic":
-            data[attribute + "_utility"] = (data[attribute] ** 2) * weight
-        else:
-            data[attribute + "_utility"] = np.exp(rate * data[attribute]) * weight
-    data["overall_score"] = data.filter(like="_utility").sum(axis=1)
+    if transform == "quadratic":
+        data["overall_score"] = sum((data[a] ** 2) * w for a, w in weights.items())
+    else:
+        data["overall_score"] = sum(np.exp(rate * data[a]) * w for a, w in weights.items())
     return data
 
 
@@ -99,7 +99,8 @@ def topsis_score(data, attributes, weights, post_transform="none"):
 
     positive_distance = np.sqrt(((weighted - ideal_positive) ** 2).sum(axis=1))
     negative_distance = np.sqrt(((weighted - ideal_negative) ** 2).sum(axis=1))
-    closeness = negative_distance / (positive_distance + negative_distance)
+    denom = positive_distance + negative_distance
+    closeness = np.where(denom == 0, 0.5, negative_distance / denom)
 
     if post_transform == "exponential":
         data["overall_score"] = np.exp(closeness)
@@ -148,8 +149,8 @@ def vikor_score(data, attributes, weights, v=0.5):
 
     S_star, S_minus = S.min(), S.max()
     R_star, R_minus = R.min(), R.max()
-    dS = (S_minus - S_star) or 1.0
-    dR = (R_minus - R_star) or 1.0
+    dS = (S_minus - S_star) if (S_minus - S_star) > 1e-10 else 1.0
+    dR = (R_minus - R_star) if (R_minus - R_star) > 1e-10 else 1.0
     Q = v * (S - S_star) / dS + (1 - v) * (R - R_star) / dR
 
     data["S"], data["R"], data["Q"] = S, R, Q

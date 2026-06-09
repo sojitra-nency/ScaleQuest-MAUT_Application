@@ -55,7 +55,10 @@ def _weight_panel():
 
 
 option = st.sidebar.selectbox("Select an approach", list(DISPATCH.keys()))
-use_costs = st.sidebar.checkbox("Treat risk attributes as costs (recommended)", value=True)
+use_costs = st.sidebar.checkbox(
+    "Invert cost criteria — Reputational, Market & Business, Regulatory risk (recommended)",
+    value=True,
+)
 weights = _weight_panel()
 
 upload_file = st.file_uploader("Upload an Excel (.xlsx) file", type=["xlsx"])
