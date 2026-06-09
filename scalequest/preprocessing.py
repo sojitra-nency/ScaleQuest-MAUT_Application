@@ -35,12 +35,14 @@ def _preprocess_bytes(data_bytes):
         pd.to_numeric, errors="coerce"
     )
 
-    # Check for NaN after coercion and warn the user
+    # Check for NaN after coercion, warn the user, and fill so the warning is true.
+    # (MinMaxScaler propagates NaN rather than zeroing it, which would break rankings.)
     nan_mask = data[config.ATTRIBUTES].isna()
     if nan_mask.any().any():
         bad_cols = nan_mask.any(axis=0)
         bad_col_names = [c for c, has_nan in zip(config.ATTRIBUTES, bad_cols) if has_nan]
-        st.warning(f"Non-numeric values found in: {', '.join(bad_col_names)} — affected cells scored as 0.")
+        st.warning(f"Non-numeric values found in: {', '.join(bad_col_names)} — treated as 0.")
+        data[config.ATTRIBUTES] = data[config.ATTRIBUTES].fillna(0)
 
     data[config.ATTRIBUTES] = MinMaxScaler().fit_transform(data[config.ATTRIBUTES])
     return data

@@ -19,6 +19,13 @@ from scalequest.methods import (
     wpm,
 )
 
+st.set_page_config(
+    page_title="ScaleQuest — MCDA Ranking",
+    page_icon="🎯",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 # Sidebar label -> method function. A dict makes routing impossible to get wrong.
 DISPATCH = {
     "MANUAL": manual,
@@ -37,7 +44,9 @@ def _weight_panel():
     st.sidebar.subheader("Criterion weights")
     st.sidebar.caption("Used by MANUAL, TOPSIS, VIKOR, WPM, and the sensitivity base.")
     raw = {
-        attr: st.sidebar.slider(attr, 0.0, 1.0, float(config.MANUAL_WEIGHTS[attr]), 0.01)
+        attr: st.sidebar.slider(
+            attr, 0.0, 1.0, float(config.MANUAL_WEIGHTS[attr]), config.WEIGHT_SLIDER_STEP
+        )
         for attr in config.ATTRIBUTES
     }
     total = sum(raw.values())
@@ -46,7 +55,7 @@ def _weight_panel():
         n = len(config.ATTRIBUTES)
         return {attr: 1.0 / n for attr in config.ATTRIBUTES}
     normalized = {attr: value / total for attr, value in raw.items()}
-    if abs(total - 1.0) > 0.005:
+    if abs(total - 1.0) > config.WEIGHT_NORM_TOLERANCE:
         st.sidebar.caption(
             f"Slider sum = {total:.2f} — normalized to 100%. Effective: "
             + " · ".join(f"{a[:4]}={v:.0%}" for a, v in normalized.items())

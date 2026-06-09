@@ -10,6 +10,7 @@ Pass all needed values as function arguments.
 """
 
 import numpy as np
+import pandas as pd
 
 #: Saaty Random Consistency Index, indexed by matrix order n (n=0,1,2 -> 0).
 #: Used to normalize the AHP consistency index into a consistency ratio.
@@ -17,7 +18,7 @@ DEFAULT_SAATY_RI = [0.0, 0.0, 0.0, 0.58, 0.90, 1.12, 1.24, 1.32, 1.41, 1.45, 1.4
 
 
 # --- Criteria direction --------------------------------------------------------
-def apply_directions(data, direction_map):
+def apply_directions(data: pd.DataFrame, direction_map: dict[str, str]) -> pd.DataFrame:
     """Invert COST criteria on the already-MinMax-normalized frame, in place.
 
     For every attribute whose direction is ``"cost"`` we replace ``x`` with
@@ -32,7 +33,7 @@ def apply_directions(data, direction_map):
 
 
 # --- Weighting / AHP -----------------------------------------------------------
-def ahp_weights(matrix, attributes):
+def ahp_weights(matrix: np.ndarray, attributes: list[str]) -> dict[str, float]:
     """Derive AHP priority weights from a pairwise-comparison matrix.
 
     Uses the geometric-mean (approximate eigenvector) method and normalizes the
@@ -43,7 +44,7 @@ def ahp_weights(matrix, attributes):
     return dict(zip(attributes, weights))
 
 
-def ahp_consistency(matrix, ri_table=DEFAULT_SAATY_RI):
+def ahp_consistency(matrix: np.ndarray, ri_table: list[float] = DEFAULT_SAATY_RI) -> dict[str, float]:
     """Return ``{lambda_max, CI, CR}`` for an AHP pairwise-comparison matrix.
 
     ``lambda_max = mean((A·w) / w)`` using the geometric-mean weights, then
@@ -64,13 +65,15 @@ def ahp_consistency(matrix, ri_table=DEFAULT_SAATY_RI):
 
 
 # --- Scoring engines (each sets ``overall_score``; higher = better) ------------
-def weighted_sum(data, weights):
+def weighted_sum(data: pd.DataFrame, weights: dict[str, float]) -> pd.DataFrame:
     """Additive utility (WSM / MANUAL / AHP): each attribute scaled by its weight."""
     data["overall_score"] = sum(data[a] * w for a, w in weights.items())
     return data
 
 
-def loss_score(data, weights, rate=1, transform="exponential"):
+def loss_score(
+    data: pd.DataFrame, weights: dict[str, float], rate: float = 1, transform: str = "exponential"
+) -> pd.DataFrame:
     """LOSS utility, weighted and summed.
 
     ``transform="exponential"`` (default): ``exp(rate * x) * w`` (original behavior).
@@ -84,7 +87,9 @@ def loss_score(data, weights, rate=1, transform="exponential"):
     return data
 
 
-def topsis_score(data, attributes, weights, post_transform="none"):
+def topsis_score(
+    data: pd.DataFrame, attributes: list[str], weights: list[float], post_transform: str = "none"
+) -> pd.DataFrame:
     """TOPSIS: relative closeness to the ideal-best/ideal-worst solutions.
 
     ``post_transform`` reshapes the closeness into the utility score:
@@ -111,7 +116,7 @@ def topsis_score(data, attributes, weights, post_transform="none"):
     return data
 
 
-def weighted_product(data, attributes, weights):
+def weighted_product(data: pd.DataFrame, attributes: list[str], weights: dict[str, float]) -> pd.DataFrame:
     """WPM (Weighted Product Model): ``score = prod_j (x_j ** w_j)``.
 
     MinMax-normalized data contains structural zeros (every column's min row is
@@ -128,7 +133,9 @@ def weighted_product(data, attributes, weights):
     return data
 
 
-def vikor_score(data, attributes, weights, v=0.5):
+def vikor_score(
+    data: pd.DataFrame, attributes: list[str], weights: dict[str, float], v: float = 0.5
+) -> pd.DataFrame:
     """VIKOR compromise ranking on benefit-aligned, normalized data.
 
     Computes S (weighted utility / group regret), R (individual regret), and the
@@ -158,7 +165,7 @@ def vikor_score(data, attributes, weights, v=0.5):
     return data
 
 
-def borda_scores(rankings_by_method, n_options):
+def borda_scores(rankings_by_method: dict[str, dict[int, int]], n_options: int) -> dict[int, int]:
     """Borda rank aggregation (consensus across methods).
 
     ``rankings_by_method`` maps method name -> ``{option_id: rank}`` where rank is
@@ -173,8 +180,8 @@ def borda_scores(rankings_by_method, n_options):
 
 
 # --- Ranking helper ------------------------------------------------------------
-def rank_and_select(data, columns):
-    """Sort by ``overall_score`` desc, add abbreviated vendor labels, project columns."""
+def rank_and_select(data: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    """Sort by ``overall_score`` desc, add generic vendor labels (Vendor 1, 2, …), project columns."""
     ranked = data.sort_values("overall_score", ascending=False)
     ranked["Abbreviated Vendor"] = [
         "Vendor {}".format(i + 1) for i in range(len(ranked))

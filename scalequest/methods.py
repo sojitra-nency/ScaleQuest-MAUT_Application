@@ -5,9 +5,7 @@ dispatch uniformly. Weight-based methods (MANUAL, TOPSIS, VIKOR, WPM, SENSITIVIT
 consume ``weights``; AHP and LOSS use the pairwise-matrix weights and ignore it.
 """
 
-import pandas as pd
 import streamlit as st
-from sklearn.preprocessing import MinMaxScaler
 
 from scalequest import config
 from scalequest.charts import comparison_chart, utility_curve_chart
@@ -35,6 +33,11 @@ def _show_diagrams(method):
         st.image(str(concept))
     with col2:
         st.image(str(working))
+
+
+def _ensure_weights(weights):
+    """Fall back to the configured manual weights when none are supplied."""
+    return weights if weights is not None else config.MANUAL_WEIGHTS
 
 
 def _prepare(file, use_costs):
@@ -68,7 +71,7 @@ def _ahp_consistency_note():
 
 
 def manual(file, weights=None, use_costs=True):
-    weights = weights if weights is not None else config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("MAUT = Multi Attribute Utility Theory")
     _show_diagrams("MANUAL")
 
@@ -101,7 +104,7 @@ def loss(file, weights=None, use_costs=True):
 
 
 def topsis(file, weights=None, use_costs=True):
-    weights = weights if weights is not None else config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("TOPSIS = Technique for Order Preference by Similarity to Ideal Solution.")
     _show_diagrams("TOPSIS")
 
@@ -115,7 +118,7 @@ def topsis(file, weights=None, use_costs=True):
 
 
 def vikor(file, weights=None, use_costs=True):
-    weights = weights if weights is not None else config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("VIKOR = Compromise ranking (VlseKriterijumska Optimizacija)")
     st.caption("Ranks by the compromise index Q (lower Q = better; shown here as a utility curve).")
     st.caption("Y-axis = −Q (negated compromise index). Higher = lower Q = better compromise.")
@@ -125,7 +128,7 @@ def vikor(file, weights=None, use_costs=True):
 
 
 def wpm(file, weights=None, use_costs=True):
-    weights = weights if weights is not None else config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("WPM = Weighted Product Model")
     st.caption("Score = ∏ xⱼ^wⱼ (criteria max-normalized to avoid structural zeros).")
 
@@ -134,7 +137,7 @@ def wpm(file, weights=None, use_costs=True):
 
 
 def sensitivity(file, weights=None, use_costs=True):
-    weights = weights if weights is not None else config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("Sensitivity Test — IRR weight sweep")
 
     data = _prepare(file, use_costs)
@@ -151,7 +154,7 @@ def sensitivity(file, weights=None, use_costs=True):
 
 
 def compare(file, weights=None, use_costs=True):
-    weights = weights or config.MANUAL_WEIGHTS
+    weights = _ensure_weights(weights)
     st.title("COMPARE — all methods side by side")
     st.caption("Each method's score is Min-Max normalized to [0, 1]; consensus is a Borda count over ranks.")
 
@@ -192,7 +195,7 @@ def compare(file, weights=None, use_costs=True):
 
     st.dataframe(result, use_container_width=True)
 
-    top_n = min(15, len(result))
+    top_n = min(config.COMPARE_TOP_N, len(result))
     top = result.head(top_n)
     score_cols = [f"{m} score" for m in runners]
     long_df = top.melt(

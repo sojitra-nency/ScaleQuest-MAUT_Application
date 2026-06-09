@@ -8,6 +8,12 @@ tooltips.
 import altair as alt
 from sklearn.preprocessing import MinMaxScaler
 
+#: Chart layout constants (single source of truth for sizing/label tuning).
+CHART_HEIGHT = 400
+COMPARISON_CHART_HEIGHT = 300
+LABEL_ANGLE = -45
+LABEL_LIMIT = 120
+
 
 def utility_curve_chart(output, title="Utility Curve"):
     """Line+point utility curve: normalized score per option, sorted by score.
@@ -27,13 +33,13 @@ def utility_curve_chart(output, title="Utility Curve"):
             x=alt.X(
                 "Abbreviated Vendor:N",
                 sort=None,
-                axis=alt.Axis(labelAngle=-45, labelOverlap=True, labelLimit=120),
+                axis=alt.Axis(labelAngle=LABEL_ANGLE, labelOverlap=True, labelLimit=LABEL_LIMIT),
                 title="Vendor",
             ),
             y=alt.Y("normalized_score:Q", title="Utility Score"),
             tooltip=tooltip,
         )
-        .properties(title=title, height=400)
+        .properties(title=title, height=CHART_HEIGHT)
         .interactive()
     )
 
@@ -58,5 +64,5 @@ def comparison_chart(long_df, top_n=15):
             ),
             tooltip=["Abbreviated Vendor", "method", "normalized_score"],
         )
-        .properties(height=300)
+        .properties(height=COMPARISON_CHART_HEIGHT)
     )

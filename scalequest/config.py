@@ -105,6 +105,16 @@ VIKOR_V = 0.5
 #: AHP consistency ratio threshold; above this the pairwise matrix is "inconsistent".
 CR_THRESHOLD = 0.10
 
+# --- UI tuning -----------------------------------------------------------------
+#: Step size for the sidebar weight sliders.
+WEIGHT_SLIDER_STEP = 0.01
+
+#: How far the slider sum may drift from 1.0 before we show the normalization note.
+WEIGHT_NORM_TOLERANCE = 0.005
+
+#: Number of top options shown in the COMPARE grouped-bar chart.
+COMPARE_TOP_N = 15
+
 # --- Output column selections --------------------------------------------------
 RANK_COLUMNS = ["S.no", "Company", "Vendor", "Abbreviated Vendor", "overall_score"]
 #: TOPSIS_RANK_COLUMNS deliberately omits the full "Vendor" name to reduce table width
