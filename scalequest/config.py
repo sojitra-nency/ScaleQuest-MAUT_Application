@@ -11,30 +11,8 @@ import numpy as np
 # --- Paths (relative to the project root, robust to the current working dir) ---
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
-DIAGRAMS_DIR = PROJECT_ROOT / "assets" / "diagrams"
-
 #: Sample dataset shipped with the repo (not auto-loaded; users upload their own).
 SAMPLE_DATA_FILE = DATA_DIR / "Consolidated data.xlsx"
-
-#: method -> (concept diagram, "working" diagram)
-DIAGRAM_PAIRS = {
-    "MANUAL": (
-        DIAGRAMS_DIR / "maut_1-MAUT_1.drawio.png",
-        DIAGRAMS_DIR / "maut_1-MAUT_1-WORKING.drawio.png",
-    ),
-    "AHP": (
-        DIAGRAMS_DIR / "maut_1-AHP.drawio.png",
-        DIAGRAMS_DIR / "maut_1-AHP-WORKING.drawio.png",
-    ),
-    "LOSS": (
-        DIAGRAMS_DIR / "maut_1-LOSS.drawio.png",
-        DIAGRAMS_DIR / "maut_1-LOSS-WORKING.drawio.png",
-    ),
-    "TOPSIS": (
-        DIAGRAMS_DIR / "maut_1-TOPSIS.drawio.png",
-        DIAGRAMS_DIR / "maut_1-TOPSIS-WORKING.drawio.png",
-    ),
-}
 
 # --- Decision criteria ---------------------------------------------------------
 #: The 9 scored attributes, in the column order used everywhere downstream.

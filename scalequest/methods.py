@@ -7,7 +7,7 @@ consume ``weights``; AHP and LOSS use the pairwise-matrix weights and ignore it.
 
 import streamlit as st
 
-from scalequest import config
+from scalequest import config, diagrams
 from scalequest.charts import comparison_chart, utility_curve_chart
 from scalequest.preprocessing import load_and_preprocess
 from scalequest.scoring import (
@@ -20,19 +20,6 @@ from scalequest.scoring import (
     weighted_product,
     weighted_sum,
 )
-
-
-def _show_diagrams(method):
-    """Render the concept + 'working' diagrams, or nothing if the method has none."""
-    pair = config.DIAGRAM_PAIRS.get(method)
-    if pair is None:
-        return
-    concept, working = pair
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image(str(concept))
-    with col2:
-        st.image(str(working))
 
 
 def _ensure_weights(weights):
@@ -73,7 +60,7 @@ def _ahp_consistency_note():
 def manual(file, weights=None, use_costs=True):
     weights = _ensure_weights(weights)
     st.title("MAUT = Multi Attribute Utility Theory")
-    _show_diagrams("MANUAL")
+    diagrams.render_diagram_pair("MANUAL")
 
     data = weighted_sum(_prepare(file, use_costs), weights)
     _render(rank_and_select(data, config.RANK_COLUMNS), "Utility Curve")
@@ -81,7 +68,7 @@ def manual(file, weights=None, use_costs=True):
 
 def ahp(file, weights=None, use_costs=True):
     st.title("AHP = Analytical Hierarchy Process")
-    _show_diagrams("AHP")
+    diagrams.render_diagram_pair("AHP")
     _ahp_consistency_note()
 
     data = weighted_sum(_prepare(file, use_costs), config.AHP_WEIGHTS)
@@ -90,7 +77,7 @@ def ahp(file, weights=None, use_costs=True):
 
 def loss(file, weights=None, use_costs=True):
     st.title("LOSS function = Level of Service Satisfaction")
-    _show_diagrams("LOSS")
+    diagrams.render_diagram_pair("LOSS")
     _ahp_consistency_note()
 
     transform = st.radio(
@@ -106,7 +93,7 @@ def loss(file, weights=None, use_costs=True):
 def topsis(file, weights=None, use_costs=True):
     weights = _ensure_weights(weights)
     st.title("TOPSIS = Technique for Order Preference by Similarity to Ideal Solution.")
-    _show_diagrams("TOPSIS")
+    diagrams.render_diagram_pair("TOPSIS")
 
     post_transform = st.radio(
         "Post-transform on closeness", ["none", "exponential", "logarithmic"], horizontal=True,
