@@ -2,7 +2,7 @@
 
 **ScaleQuest** is a decision-support web application that ranks options across multiple weighted criteria using eight Multi-Criteria Decision Analysis (MCDA) methods. Built with Streamlit, it's designed to evaluate ~140 mining & resource R&D vendors across 9 evaluation criteria, but is flexible for any scoring scenario.
 
-**Live demo:** [https://maut-1234.streamlit.app/](https://sojitra-nency-scalequest-maut-application-app-ybo7ns.streamlit.app/)
+**Live demo:** [https://sojitra-nency-scalequest-maut-application-app-ybo7ns.streamlit.app/](https://sojitra-nency-scalequest-maut-application-app-ybo7ns.streamlit.app/)
 
 ---
 
