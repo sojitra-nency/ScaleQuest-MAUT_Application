@@ -13,11 +13,11 @@ import streamlit.components.v1 as components
 # ---------------------------------------------------------------------------
 _HEIGHTS: dict[str, dict[str, int]] = {
     # impl  — LR pipeline, single row of boxes; height = one-node row + subgraph frame
-    # concept — TD chain, rendered at natural (unscaled) width; height = natural SVG height
-    "MANUAL":  {"impl": 220, "concept": 680},
-    "AHP":     {"impl": 220, "concept": 470},
-    "LOSS":    {"impl": 220, "concept": 680},
-    "TOPSIS":  {"impl": 240, "concept": 1100},
+    # concept — TD chain, natural (unscaled) width; height includes 40 px bottom buffer
+    "MANUAL":  {"impl": 220, "concept": 820},
+    "AHP":     {"impl": 220, "concept": 560},
+    "LOSS":    {"impl": 220, "concept": 820},
+    "TOPSIS":  {"impl": 240, "concept": 1320},
 }
 
 # ---------------------------------------------------------------------------
@@ -364,16 +364,28 @@ mermaid.run({ querySelector: '.mermaid' }).then(function () {
 
 
 # Conceptual-flow variant: natural (unscaled) width, centred in the iframe.
-# TD diagrams are naturally narrow (~280-320 px); scaling them to full page width
-# (useMaxWidth:true) inflates height by 4-5× making it unframeable. This variant
-# disables that scaling and centres the SVG instead.
+# Three key differences from _TEMPLATE:
+#   1. useMaxWidth:false — keeps the SVG at its natural width (~300px) instead of
+#      scaling it to fill the full page, which would inflate height by 4–5×.
+#   2. Remove max-width:100% on .mermaid svg — that CSS rule constrains the SVG to the
+#      flex child's computed width and clips long node text (e.g. "CALCULATE WEIGHTED").
+#   3. Add bottom padding to body so the last node never butts against the Streamlit table.
 _CONCEPT_TEMPLATE = (
     _TEMPLATE
     .replace("useMaxWidth: true", "useMaxWidth: false")
     .replace(
+        "  body { margin: 0; padding: 4px 2px; background: transparent; font-family: sans-serif; }",
+        "  body { margin: 0; padding: 4px 2px 32px; background: transparent; font-family: sans-serif; }",
+    )
+    .replace(
+        "  .mermaid svg { max-width: 100%; display: block; overflow: visible; }",
+        "  .mermaid { overflow: visible; }"
+        "  .mermaid svg { display: block; overflow: visible; }",
+    )
+    .replace(
         '<div class="mermaid">%%DIAGRAM%%</div>',
         '<div style="display:flex;justify-content:center;">'
-        '<div class="mermaid">%%DIAGRAM%%</div>'
+        '<div class="mermaid" style="overflow:visible;">%%DIAGRAM%%</div>'
         "</div>",
     )
 )
